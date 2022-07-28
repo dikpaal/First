@@ -420,3 +420,7 @@ function checkNumberOfCompletedTasks() {
         completedTasks.innerText = count.toString()
     }
 }
+
+function nothing() {
+    
+}
