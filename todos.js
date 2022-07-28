@@ -1,15 +1,20 @@
 // Selectors
 
+const body = document.querySelector("#body")
 const ulEl = document.querySelector("#ul-el")
-const inputField = document.querySelector("#todo-input-element")
+const inputField = document.querySelector(".todo-input-element")
 const saveButton = document.querySelector("#todo-save-button")
+const modeButton = document.querySelector("#mode-changer-button")
 const header = document.querySelector("#header")
 const completedTasks = document.querySelector("#number-of-completed-tasks")
 const authorNameArray = JSON.parse(localStorage.getItem("namesOfAuthors"))
+const comp = document.querySelector("#completed-tasks")
+const todosHeading = document.querySelector("#todos-heading")
+let authorName2 = document.querySelector(".author-name")
 let authorName
 
-
 checkNumberOfCompletedTasks()
+
 
 if (authorNameArray !== null) {
     authorName = authorNameArray[0]
@@ -34,9 +39,43 @@ createHeader(authorName)
 
 // Functions
 
+function checkTasks() {
+
+    const todos = JSON.parse(localStorage.getItem("todos"))
+
+    if (todos.length === 0) {
+        todosHeading.textContent = "You are all set!"
+    }
+    else {
+        todosHeading.textContent = "Tasks"
+    }
+
+}
+
+function formMode() {
+
+    // Light Mode
+
+    if (mode === "light") {
+
+        inputField.classList.toggle("dark-todo-input-element")
+
+    }
+
+    // Dark Mode
+
+    else {
+
+        inputField.classList.toggle("todo-input-element")
+
+    }
+
+}
+
 function createHeader(nameOfAuthor) {
 
     // Main Div
+
 
     const displayDiv = document.createElement("div")
     displayDiv.classList.add("display-div")
@@ -44,7 +83,8 @@ function createHeader(nameOfAuthor) {
     // Text (Name)
 
     const displayName = document.createElement("h1")
-    displayName.classList.add("author-name")
+    displayName.classList.add("heading")
+
 
     if (nameOfAuthor !== "") {
         displayName.innerText = `${nameOfAuthor}'s Tasks`
@@ -58,6 +98,7 @@ function createHeader(nameOfAuthor) {
     header.appendChild(displayDiv)
 
 }
+
 
 function editAuthorName(event) {
     const item = event.target
@@ -190,7 +231,9 @@ function addTodo(event) {
         todoDiv.appendChild(deleteButton)
 
         ulEl.appendChild(todoDiv)
+        checkTasks()
         inputField.value = ""
+
     }
 
 }
@@ -216,6 +259,7 @@ function deleteCheck(event) {
         setTimeout(() => {
             todo.remove()
             removeLocalTodos(todo)
+            checkTasks()
         }, 1200)
     } 
 
@@ -241,13 +285,14 @@ function deleteCheck(event) {
 
         // Removing the todo with transition
 
-        item.innerHTML = "<i class='fa-regular fa-square-check fa-shake'></i>"
+        item.innerHTML = "<i class='fa-regular fa-square-check fa-bounce'></i>"
         todo.style.transform = "translateX(-100%)"
         todo.style.opacity = "0%"
 
         setTimeout(() => {
             todo.remove()
             removeLocalTodos(todo)
+            checkTasks()
         }, 1200)
     }
 }
@@ -272,6 +317,8 @@ function saveLocalTodos(todo) {
 
 function getTodos() {
 
+    checkTasks()
+
     // Check : Hey do `i already have something in there?
 
     let todos
@@ -282,6 +329,7 @@ function getTodos() {
     else {
         todos = JSON.parse(localStorage.getItem("todos"))
     }
+
 
     todos.forEach(function(todo) {
         // Div
@@ -313,6 +361,7 @@ function getTodos() {
         ulEl.appendChild(todoDiv)
     })
 }
+
 
 function removeLocalTodos(todo) {
      // Check : Hey do `i already have something in there?
