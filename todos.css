@@ -1,4 +1,5 @@
-body {
+#body {
+    background-color: #e4caa2;
     margin: 0;
     padding: 0;
     padding-top: 50px;
@@ -6,25 +7,9 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     min-width: 400px;
     min-height: 500px;
-    background-color: #e4caa2;
 }
 
-.hr {
-    border: 1px solid #845634;
-    margin: 7% 30% 15% 30%;
-    opacity: 30%;
-    pointer-events: none;
-
-}
-
-.no-todos {
-    border: none;
-    margin: 7% 30% 15% 30%;
-    opacity: 30%;
-    pointer-events: none;
-}
-
-#todo-input-element {
+.todo-input-element {
     background-color: transparent;
     color: #6f2e11;
     padding: 2%;
@@ -36,14 +21,15 @@ body {
     font-size: 1.1rem;
     min-width: 45%;
     width: 50%;
+    max-width: 50%;
 }
 
-#todo-input-element:focus {
+.todo-input-element:focus {
     outline: none;
 }
 
-#todo-input-element::placeholder {
-    color: #6f2e11;
+.todo-input-element::placeholder {
+    color: var(--c , #6f2e11);
     font-weight: bold;
     opacity: 50%;
     font-family: Roboto;
@@ -202,7 +188,7 @@ body {
 
 .completed {
     text-decoration: line-through;
-    text-decoration-color: #6d3c25;
+    text-decoration-color: #6f2e11;
     opacity: 0.5;
     pointer-events: none;
     transform: translateY(1px);
@@ -233,6 +219,46 @@ body {
     color: #6f2e11;
 }
 
-.author-name {
+.heading {
     color: #6f2e11;
+}
+
+#mode-changer-div {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 1%;
+    margin: 1%;
+}
+
+#mode-changer-button {
+    background-color: transparent;
+    margin: 0 0;
+    color: white;
+    padding: 2%;
+    font-size: 0.8rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0s;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 36px;
+}
+
+#mode-changer-button:hover {
+    transition: background-color 0s;
+}
+
+#mode-changer-button:active {
+    border: none;
+    transform: translateY(1.5px);
+
+}
+
+.fa-ghost {
+    color: white;
+    pointer-events: stroke;
 }
