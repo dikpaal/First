@@ -4,17 +4,16 @@ const body = document.querySelector("#body")
 const ulEl = document.querySelector("#ul-el")
 const inputField = document.querySelector(".todo-input-element")
 const saveButton = document.querySelector("#todo-save-button")
-const modeButton = document.querySelector("#mode-changer-button")
 const header = document.querySelector("#header")
 const completedTasks = document.querySelector("#number-of-completed-tasks")
 const authorNameArray = JSON.parse(localStorage.getItem("namesOfAuthors"))
 const comp = document.querySelector("#completed-tasks")
 const todosHeading = document.querySelector("#todos-heading")
-let authorName2 = document.querySelector(".author-name")
+let authorName2 = document.querySelector(".heading")
 let authorName
 
-checkNumberOfCompletedTasks()
 
+checkNumberOfCompletedTasks()
 
 if (authorNameArray !== null) {
     authorName = authorNameArray[0]
@@ -22,7 +21,6 @@ if (authorNameArray !== null) {
 else {
     authorName = "Device"
     const tempAuthorNameArray = ["Device"]
-
     localStorage.setItem("namesOfAuthors", JSON.stringify(tempAuthorNameArray))
 }
 
@@ -41,7 +39,11 @@ createHeader(authorName)
 
 function checkTasks() {
 
-    const todos = JSON.parse(localStorage.getItem("todos"))
+    let todos = JSON.parse(localStorage.getItem("todos"))
+
+    if (todos === null) {
+        todos = []
+    }
 
     if (todos.length === 0) {
         todosHeading.textContent = "You are all set!"
@@ -52,30 +54,10 @@ function checkTasks() {
 
 }
 
-function formMode() {
-
-    // Light Mode
-
-    if (mode === "light") {
-
-        inputField.classList.toggle("dark-todo-input-element")
-
-    }
-
-    // Dark Mode
-
-    else {
-
-        inputField.classList.toggle("todo-input-element")
-
-    }
-
-}
 
 function createHeader(nameOfAuthor) {
 
     // Main Div
-
 
     const displayDiv = document.createElement("div")
     displayDiv.classList.add("display-div")
@@ -103,11 +85,11 @@ function createHeader(nameOfAuthor) {
 function editAuthorName(event) {
     const item = event.target
 
-    if(item.classList[0] === "author-name") {
+    if(item.classList[0] === "heading") {
         
         // Create selectors
 
-        const authorNameElement = document.querySelector(".author-name")
+        const authorNameElement = document.querySelector(".heading")
         const displayDiv = document.querySelector(".display-div")
 
         // Replace h1 with input field
@@ -115,7 +97,7 @@ function editAuthorName(event) {
         const headerInputField = document.createElement("input")
         headerInputField.classList.add("header-input-field")
         headerInputField.setAttribute("autofocus", "autofocus")
-        headerInputField.setAttribute("placeholder", "Enter Your Name")
+        headerInputField.setAttribute("placeholder", "Whose Tasks?")
 
         displayDiv.replaceChild(headerInputField, authorNameElement)
 
@@ -144,7 +126,7 @@ function editAuthorName(event) {
                 const authorName = nameArray[0]
 
                 const dispName = document.createElement("h1")
-                dispName.classList.add("author-name")
+                dispName.classList.add("heading")
                 dispName.innerText = `${authorName}'s Tasks`
                 
                 displayDiv.replaceChild(dispName, headerInputField)
@@ -178,7 +160,7 @@ function editAuthorName(event) {
                     const authorName = nameArray[0]
 
                     const dispName = document.createElement("h1")
-                    dispName.classList.add("author-name")
+                    dispName.classList.add("heading")
                     dispName.innerText = `${authorName}'s Tasks`
                     
                     displayDiv.replaceChild(dispName, headerInputField)
@@ -414,9 +396,13 @@ function checkNumberOfCompletedTasks() {
         localStorage.setItem("completedTasks", JSON.stringify(["0"]))
     }
 
-    else {
-        const countArray = JSON.parse(localStorage.getItem("completedTasks"))
-        const count = countArray[0]
-        completedTasks.innerText = count.toString()
-    }
+    // else {
+    //     const countArray = JSON.parse(localStorage.getItem("completedTasks"))
+    //     const count = countArray[0]
+    //     completedTasks.innerText = count.toString()
+    // }
+
+    const countArray = JSON.parse(localStorage.getItem("completedTasks"))
+    const count = countArray[0]
+    completedTasks.innerText = count.toString() 
 }

@@ -10,6 +10,8 @@
 }
 
 #name-of-the-author {
+    color: #6f2e11;
+    font-weight: 350;
     background-color: transparent;
     padding: 2%;
     box-sizing: border-box;
